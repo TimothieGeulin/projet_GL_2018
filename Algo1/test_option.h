@@ -26,7 +26,7 @@ struct s_LL_etudiant{
 typedef LL_etudiant *LISTE;
 
 
-void remove_when_assigned(Etudiant current);
+void remove_when_assigned(Etudiant current, int C);
 int check_assignement(int choice[Nb_options], Etudiant current, int cursor);
 int is_in_array(int tab[Nb_options], int check);
 void get_choice_for_everyone();

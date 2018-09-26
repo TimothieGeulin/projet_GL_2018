@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define NB_E 20
+#define NB_E 5
 #define NB_M 5
 #define NB_C 10
+
+char Amax[NB_E][NB_M]; //Meilleure affectation
 
 int affect(int max, int total, int position, int E[NB_E][NB_M], char A[NB_E][NB_M], char Amax[NB_E][NB_M])
 {
@@ -13,8 +15,8 @@ int affect(int max, int total, int position, int E[NB_E][NB_M], char A[NB_E][NB_
 	//printf("Position = %d",position);
 	if(position>=NB_E)
 	{
-		//printf("Position finale atteinte (total = %d)\n", total);
-		/*for(i=0;i<NB_E;i++)
+		printf("Position finale atteinte (total = %d)\n", total);
+		for(i=0;i<NB_E;i++)
 		{
 			for(j=0;j<NB_M;j++) 
 			{
@@ -22,12 +24,12 @@ int affect(int max, int total, int position, int E[NB_E][NB_M], char A[NB_E][NB_
 			}
 			printf("\n");
 		}
-		printf("===============\n");*/
+		printf("===============\n");
 		if(total>max) 
 		{
 			printf("Nouveau max %d\n",total);
-			for(j=0;j<NB_M;j++) 
-				for(j=0;j<NB_C;j++) Amax[i][j] = A[i][j];
+			for(i=0;j<NB_E;j++) 
+				for(j=0;j<NB_M;j++) Amax[i][j] = A[i][j];
 			return total;
 		}
 		else return max;
@@ -49,7 +51,6 @@ int main(void)
 	//Création du tableau d'élèves et d'affectations.
 	int E[NB_E][NB_M]; //Eleves
 	char A[NB_E][NB_M];	//Affectations (binaire)
-	char Amax[NB_E][NB_M]; //Meilleure affectation
 	int i,j,k;
 	//Initialisation et remplissage aléatoire
 	for(i=0;i<NB_E;i++)
@@ -71,6 +72,7 @@ int main(void)
 	printf("Recherche du max\n");
 	int max = 0;
 	max = affect(max,0,0,E,A,Amax);
+	printf("\nFin du max, score final: %d\n\n",max);
 
 	for(i=0;i<NB_E;i++)
 	{

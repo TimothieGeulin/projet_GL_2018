@@ -88,23 +88,22 @@ void print_LL(){
 	//printf("End %s\n", __func__);
 }
 
-void remove_when_assigned(Etudiant current){	/*Enlève un étudiant des autres liste quand on lui affecte une option*/
+void remove_when_assigned(Etudiant current, int C){	/*Enlève un étudiant des autres liste quand on lui affecte une option*/
 	//printf("Start %s\n", __func__);
 	printf("AVANT SUPRESSION : ETUDIANT %d \n",current.idEtudiant);
 	print_LL();
 	int check_first = 0;
 
-	for(int index_option=0; index_option<Nb_options; index_option++){
 		LISTE old;
-		LISTE tmp = LL_option_list[index_option];
+		LISTE tmp = LL_option_list[C];
 		if(tmp == NULL){
 			exit(0);
 		}
 		
-		while(tmp != NULL){
+		while(tmp->suiv != NULL){
 			if(tmp->etudiant.idEtudiant == current.idEtudiant){
 				if(check_first == 0){
-					LL_option_list[index_option] = LL_option_list[index_option]->suiv; 
+					LL_option_list[C] = LL_option_list[C]->suiv; 
 				}
 				else{
 					old->suiv=tmp->suiv;
@@ -115,8 +114,7 @@ void remove_when_assigned(Etudiant current){	/*Enlève un étudiant des autres l
 			}
 			old = tmp;
 			tmp = tmp->suiv;
-		}
-	}	
+		}	
 		printf("-----------\nAPRES SUPRESSION\n");
 		print_LL();
 		
@@ -269,7 +267,7 @@ int new_affect(int choice_index){	// renvoi 1 si une affectation a eu lieu, sino
 						change = 1;
 					effectif[option]--;
 					listeEtu[i].affectation = option;
-					remove_when_assigned(listeEtu[i]);
+					for(int C=0; C<Nb_options; C++) remove_when_assigned(listeEtu[i],C);
 				}
 				tmp = tmp->suiv;
 				compteur ++;
@@ -461,12 +459,11 @@ int main(int argc, char const *argv[]){
 	print_affectations();
 
 	/*print_affectations();
-	print_copy_option_list();
+	print_copy_option_list();*/
 
 	for(int i=0; i<Nb_options; i++){
 		printf("%d / ",effectif[i]);
 	}
-*/
 	
 	return 0;
 
